@@ -4,6 +4,7 @@ from typing import List
 from players import ChessPlayer
 from spreadsheet_data import SHEET_ID, SHEET_NAME
 
+
 def load_df_from_spreadsheet(sheet_id: str, sheet_name: str):
     spreadsheet_url = f'https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}'
     df = pd.read_csv(spreadsheet_url, on_bad_lines='skip')
@@ -40,7 +41,8 @@ def create_players_from_spreadsheet(df: pd.DataFrame) -> List[ChessPlayer]:
 
         setattr(player, "points", player_points)
         setattr(player, "round_colors", {"white": player_white, "black": player_black})
-        setattr(player, "times_win_draw_loss_bye", {"win": player_win, "draw": player_draw, "loss": player_loss, "bye": player_bye})
+        setattr(player, "times_win_draw_loss_bye",
+                {"win": player_win, "draw": player_draw, "loss": player_loss, "bye": player_bye})
         setattr(player, "previous_opponents", player_previous_opponents)
 
         players.append(player)
