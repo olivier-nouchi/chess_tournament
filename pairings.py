@@ -1,4 +1,5 @@
 from typing import List
+
 from players import ChessPlayer
 from tournament_round import TournamentRound
 from board_result import BoardResult
@@ -8,7 +9,7 @@ from players_list import PLAYERS_EXAMPLE
 from tournament import Tournament
 
 
-def create_pairings(players: List[ChessPlayer], method: PairingMethod = PairingMethod.points):
+def create_pairings(players: List[ChessPlayer], round_number: str, method: PairingMethod = PairingMethod.points):
     """ Given a list of players with points, it creates a pairing between the players based on the method used"""
     pairings = []
     for player in players:
@@ -83,15 +84,15 @@ def create_pairings(players: List[ChessPlayer], method: PairingMethod = PairingM
     if not pairings:
         print(f"Careful, the pairings are empty!")
 
-    display_pairings(pairings=pairings)
+    display_pairings(pairings=pairings, round_number=round_number)
     return pairings
 
 
-def display_pairings(pairings: List):
-    print("----- The pairings are the following -----")
-    for pairing in pairings:
+def display_pairings(pairings: List, round_number: str):
+    print(f"----- Pairings for Round {round_number} -----")
+    for table_num, pairing in enumerate(pairings):
         player1, player2 = pairing
-        print(f"{player1.full_name}({player1.points}) (W) - {player2.full_name}({player2.points}) (B)")
+        print(f"Table {table_num+1} | {player1.full_name}({player1.points}) (W) - {player2.full_name}({player2.points}) (B)")
 
 
 def create_random_tournament_round(players: List[ChessPlayer], round_number: int) -> TournamentRound:
@@ -125,15 +126,10 @@ def create_random_tournament_round(players: List[ChessPlayer], round_number: int
 
     return tr
 
-
-def send_pairings_to_WA():
-    pass
-
-
-
-# TODO: add a condition the #rounds > #players
-Tournament = Tournament(players=PLAYERS_EXAMPLE)
-for tr_n in range(7):
-    tr = create_random_tournament_round(players=PLAYERS_EXAMPLE, round_number=tr_n+1)
-    tr.apply_tournament_round_to_players(players=PLAYERS_EXAMPLE)
-    Tournament.get_tournament_state()
+# 
+# # TODO: add a condition the #rounds > #players
+# Tournament = Tournament(players=PLAYERS_EXAMPLE)
+# for tr_n in range(7):
+#     tr = create_random_tournament_round(players=PLAYERS_EXAMPLE, round_number=tr_n+1)
+#     tr.apply_tournament_round_to_players(players=PLAYERS_EXAMPLE)
+#     Tournament.get_tournament_state()

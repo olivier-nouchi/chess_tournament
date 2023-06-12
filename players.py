@@ -29,7 +29,7 @@ class ChessPlayer:
         """
         Given the outcome of a round and how many points the player gets, the player state changes
         Outcome: is a win, draw or loss
-        Points: how many p oints the player gets from the round
+        Points: how many points the player gets from the round
         Round color: the color of pieces the player played with.
         """
 
@@ -37,6 +37,7 @@ class ChessPlayer:
         self.previous_opponents.append(opponent_name)
         self.points += points
         self.round_colors[round_color] += 1
+        
 
 # print(players)
 # for player in players:
