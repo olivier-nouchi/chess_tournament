@@ -9,7 +9,8 @@ from players_list import PLAYERS_EXAMPLE
 from tournament import Tournament
 
 
-def create_pairings(players: List[ChessPlayer], round_number: str, method: PairingMethod = PairingMethod.points):
+def create_pairings(players: List[ChessPlayer], round_number: str, method: PairingMethod = PairingMethod.points,
+                    display_elo: bool = True):
     """ Given a list of players with points, it creates a pairing between the players based on the method used"""
     pairings = []
     for player in players:
@@ -30,12 +31,6 @@ def create_pairings(players: List[ChessPlayer], round_number: str, method: Pairi
             player1_BYE.times_win_draw_loss_bye[ResultOutcome.bye.value] += 1
             player2_BYE = BYE_PLAYER
             player1_BYE.is_paired = True
-
-            # print(f"{player1_BYE} gets a BYE!")
-
-            #TODO: if all players received a BYE already (that is more rounds than players) then...
-
-        # TODO: Also make sure that no players take 2 BYEs in the same tournament
 
         # Make sure that now the number of players is even
         not_paired_players = [player for player in active_sorted_player_by_points if not player.is_paired]
@@ -72,6 +67,33 @@ def create_pairings(players: List[ChessPlayer], round_number: str, method: Pairi
                 shuffle(players12)
                 pairings.append(tuple(players12))
 
+    if method == PairingMethod.random:
+        pass
+    if method == PairingMethod.mid_rating:
+        sorted_player_by_rating = sorted(players, key=lambda p: p.elo_rating, reverse=True)
+        active_sorted_player_by_rating = [p for p in sorted_player_by_rating if p.is_active]
+
+        if len(active_sorted_player_by_rating) % 2 == 1:
+            # pick the last player with no BYE already
+            player1_BYE = [player for player in active_sorted_player_by_rating if player.times_win_draw_loss_bye[ResultOutcome.bye.value] == 0][-1]
+            player1_BYE.times_win_draw_loss_bye[ResultOutcome.bye.value] += 1
+            player2_BYE = BYE_PLAYER
+            player1_BYE.is_paired = True
+
+        # Make sure that now the number of players is even
+        not_paired_players = [player for player in active_sorted_player_by_rating if not player.is_paired]
+        assert len(not_paired_players) % 2 == 0
+
+        print(not_paired_players)
+        for index, _ in enumerate(not_paired_players):
+            if index == len(not_paired_players)//2:
+                break
+            player1, player2 = not_paired_players[index], not_paired_players[index+len(not_paired_players)//2]
+
+            players12 = [player1, player2]
+            shuffle(players12)
+            pairings.append(tuple(players12))
+
     if player1_BYE and player2_BYE:
         pairings.append((player1_BYE, player2_BYE))
 
@@ -84,15 +106,21 @@ def create_pairings(players: List[ChessPlayer], round_number: str, method: Pairi
     if not pairings:
         print(f"Careful, the pairings are empty!")
 
-    display_pairings(pairings=pairings, round_number=round_number)
+    display_pairings(pairings=pairings, round_number=round_number, display_elo=display_elo)
     return pairings
 
 
-def display_pairings(pairings: List, round_number: str):
+def display_pairings(pairings: List, round_number: str, display_elo: bool = False):
     print(f"----- Pairings for Round {round_number} -----")
+    display_elo_str_1, display_elo_str_2 = "", ""
     for table_num, pairing in enumerate(pairings):
         player1, player2 = pairing
-        print(f"Table {table_num+1} | {player1.full_name}({player1.points}) (W) - {player2.full_name}({player2.points}) (B)")
+
+        if display_elo:
+            display_elo_str_1 = f"[{player1.elo_rating}]"
+            display_elo_str_2 = f"[{player2.elo_rating}]"
+
+        print(f"Table {table_num+1} | {player1.full_name}{display_elo_str_1} ({player1.points}) (W) - {player2.full_name}{display_elo_str_2} ({player2.points}) (B)")
 
 
 def create_random_tournament_round(players: List[ChessPlayer], round_number: int) -> TournamentRound:

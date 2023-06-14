@@ -1,12 +1,15 @@
 class ChessPlayer:
 
-    def __init__(self, player_id: int, first_name: str, last_name: str, is_active: bool = True, is_paired: bool = False):
+    def __init__(self, player_id: int, first_name: str, last_name: str, is_active: bool = True, is_paired: bool = False,
+                 elo_rating: int = 0, points: float = 0, tb_points: float = 0):
         self.player_id = player_id
         self.first_name = first_name
         self.last_name = last_name
+        self.elo_rating = elo_rating
         self.is_active = is_active
         self.is_paired = is_paired
-        self.points = 0
+        self.points = points
+        self.tb_points = tb_points
         self.round_colors = {"white": 0, "black": 0}
         self.times_win_draw_loss_bye = {"win": 0, "draw": 0, "loss": 0, "bye": 0}
         self.previous_opponents = []
@@ -37,7 +40,6 @@ class ChessPlayer:
         self.previous_opponents.append(opponent_name)
         self.points += points
         self.round_colors[round_color] += 1
-        
 
 # print(players)
 # for player in players:
