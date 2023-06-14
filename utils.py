@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import List
+from collections import defaultdict
 
 from players import ChessPlayer
 
@@ -53,5 +54,24 @@ def display_players_stats(players: List[ChessPlayer]):
         print(f"{player.full_name} - {str(player.points)} points - {player.times_win_draw_loss_bye} - {player.round_colors} - {player.previous_opponents}")
         
 
-def send_pairings_to_WA(pairings=List):
+def display_pairings_by_player(pairings:List):
+    players_from_pairings = defaultdict(dict)
+    for pairing in pairings:
+        player1, player2 = pairing
+        players_from_pairings[player1.player_id]["color"] = "white"
+        players_from_pairings[player1.player_id]["opp_id"] = player2.player_id
+
+        players_from_pairings[player2.player_id]["color"] = "black"
+        players_from_pairings[player2.player_id]["opp_id"] = player1.player_id
+
+    sorted_player_by_id = dict(sorted(players_from_pairings.items()))
+    print(sorted_player_by_id)
+
+    for player_id, player_info in sorted_player_by_id.items():
+        color = player_info["color"]
+        opp_id = player_info["opp_id"]
+        print(f"{player_id} - {color} - {opp_id}")
+
+
+def send_pairings_to_WA(pairings:List):
     pass
