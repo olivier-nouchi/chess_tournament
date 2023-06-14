@@ -19,14 +19,14 @@ if __name__ == "__main__":
         pairings = create_pairings(players=players_from_spreadsheet,
                                    round_number=ROUND_NUMBER,
                                    method=PairingMethod.mid_rating,
-                                   display_elo=True
+                                   display_elo=False
                                    )
 
     else:
         pairings = create_pairings(players=players_from_spreadsheet,
                                    round_number=ROUND_NUMBER,
                                    method=PairingMethod.points,
-                                   display_elo=True
+                                   display_elo=False
                                    )
 
     display_pairings_by_player(pairings=pairings)

@@ -9,7 +9,7 @@ from players_list import PLAYERS_EXAMPLE
 from tournament import Tournament
 
 
-def create_pairings(players: List[ChessPlayer], round_number: str, method: PairingMethod = PairingMethod.points,
+def create_pairings(players: List[ChessPlayer], round_number: int, method: PairingMethod = PairingMethod.points,
                     display_elo: bool = True):
     """ Given a list of players with points, it creates a pairing between the players based on the method used"""
     pairings = []
@@ -110,7 +110,7 @@ def create_pairings(players: List[ChessPlayer], round_number: str, method: Pairi
     return pairings
 
 
-def display_pairings(pairings: List, round_number: str, display_elo: bool = False):
+def display_pairings(pairings: List, round_number: int, display_elo: bool = False):
     print(f"----- Pairings for Round {round_number} -----")
     display_elo_str_1, display_elo_str_2 = "", ""
     for table_num, pairing in enumerate(pairings):
@@ -120,7 +120,7 @@ def display_pairings(pairings: List, round_number: str, display_elo: bool = Fals
             display_elo_str_1 = f"[{player1.elo_rating}]"
             display_elo_str_2 = f"[{player2.elo_rating}]"
 
-        print(f"Table {table_num+1} | {player1.full_name}{display_elo_str_1} ({player1.points}) (W) - {player2.full_name}{display_elo_str_2} ({player2.points}) (B)")
+        print(f"Table {table_num+1} | {player1.full_name}{display_elo_str_1} ({player1.points} pts) (W) - {player2.full_name}{display_elo_str_2} ({player2.points} pts) (B)")
 
 
 def create_random_tournament_round(players: List[ChessPlayer], round_number: int) -> TournamentRound:
