@@ -36,11 +36,11 @@ if __name__ == "__main__":
     display_players_stats(players=players_from_spreadsheet)
 
     def run_rounds_simulation():
-    # # TODO: add a condition the #rounds > #players
-    Tournament = Tournament(players=players_from_spreadsheet)
-    for tr_n in range(7):
-        tr = create_random_tournament_round(players=players_from_spreadsheet, round_number=tr_n + 1)
-        tr.apply_tournament_round_to_players(players=players_from_spreadsheet)
-        Tournament.get_tournament_state()
+        #  TODO: add a condition the #rounds > #players
+        tournament = Tournament(players=players_from_spreadsheet)
+        for tr_n in range(7):
+            tr = create_random_tournament_round(players=players_from_spreadsheet, round_number=tr_n + 1)
+            tr.apply_tournament_round_to_players(players=players_from_spreadsheet)
+            tournament.get_tournament_state()
 
-    display_players_ranking(players=players_from_spreadsheet, display_elo=False)
+        display_players_ranking(players=players_from_spreadsheet, display_elo=False)
