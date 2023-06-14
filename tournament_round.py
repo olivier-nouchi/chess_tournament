@@ -1,3 +1,5 @@
+import numpy as np
+
 from players import ChessPlayer
 from typing import List
 from board_result import BoardResult

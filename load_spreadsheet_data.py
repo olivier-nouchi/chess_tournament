@@ -32,7 +32,7 @@ def create_players_from_spreadsheet(df: pd.DataFrame) -> List[ChessPlayer]:
         player_white = list(df[df["player_id"] == player_id]["white_black"].dropna().values).count("white")
         player_black = list(df[df["player_id"] == player_id]["white_black"].dropna().values).count("black")
 
-        player_previous_opponents = df[df["player_id"] == player_id]["opponent_id"].dropna().astype(int).values
+        player_previous_opponents = list(df[df["player_id"] == player_id]["opponent_id"].dropna().astype(int).values)
 
         player = ChessPlayer(player_id=player_id,
                              first_name=player_first_name,

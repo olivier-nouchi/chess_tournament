@@ -128,7 +128,7 @@ def create_random_tournament_round(players: List[ChessPlayer], round_number: int
     wpp, bpp = 0, 0
     total_points_round = 0
 
-    pairings = create_pairings(players=players, method=PairingMethod.points)
+    pairings = create_pairings(players=players, round_number=round_number, method=PairingMethod.points)
 
     for pairing in pairings:
         player_w, player_b = pairing
@@ -154,10 +154,3 @@ def create_random_tournament_round(players: List[ChessPlayer], round_number: int
 
     return tr
 
-# 
-# # TODO: add a condition the #rounds > #players
-# Tournament = Tournament(players=PLAYERS_EXAMPLE)
-# for tr_n in range(7):
-#     tr = create_random_tournament_round(players=PLAYERS_EXAMPLE, round_number=tr_n+1)
-#     tr.apply_tournament_round_to_players(players=PLAYERS_EXAMPLE)
-#     Tournament.get_tournament_state()

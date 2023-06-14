@@ -7,14 +7,14 @@ Need to write at the end of each round the state.
 
 """
 from load_spreadsheet_data import players_from_spreadsheet
-from pairings import create_pairings
+from pairings import create_pairings, create_random_tournament_round
+from tournament import Tournament
 from utils import PairingMethod, display_players_ranking, display_players_stats, display_pairings_by_player
 
 # Enter the round number
-ROUND_NUMBER = 2
+ROUND_NUMBER = 1
 
 if __name__ == "__main__":
-    # print(players_from_spreadsheet)
     if ROUND_NUMBER == 1:
         pairings = create_pairings(players=players_from_spreadsheet,
                                    round_number=ROUND_NUMBER,
@@ -34,3 +34,13 @@ if __name__ == "__main__":
     display_players_ranking(players=players_from_spreadsheet, display_elo=False)
     # display_players_ranking(players=players_from_spreadsheet, display_elo=True)
     display_players_stats(players=players_from_spreadsheet)
+
+    def run_rounds_simulation():
+    # # TODO: add a condition the #rounds > #players
+    Tournament = Tournament(players=players_from_spreadsheet)
+    for tr_n in range(7):
+        tr = create_random_tournament_round(players=players_from_spreadsheet, round_number=tr_n + 1)
+        tr.apply_tournament_round_to_players(players=players_from_spreadsheet)
+        Tournament.get_tournament_state()
+
+    display_players_ranking(players=players_from_spreadsheet, display_elo=False)
