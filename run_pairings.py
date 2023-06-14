@@ -11,7 +11,7 @@ from pairings import create_pairings
 from utils import PairingMethod, display_players_ranking, display_players_stats, display_pairings_by_player
 
 # Enter the round number
-ROUND_NUMBER = 1
+ROUND_NUMBER = 2
 
 if __name__ == "__main__":
     # print(players_from_spreadsheet)
@@ -31,5 +31,6 @@ if __name__ == "__main__":
 
     display_pairings_by_player(pairings=pairings)
 
-    display_players_ranking(players=players_from_spreadsheet, display_elo=True, display_tb_points=True)
+    display_players_ranking(players=players_from_spreadsheet, display_elo=False)
+    # display_players_ranking(players=players_from_spreadsheet, display_elo=True)
     display_players_stats(players=players_from_spreadsheet)

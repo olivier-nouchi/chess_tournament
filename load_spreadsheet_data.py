@@ -48,11 +48,11 @@ def create_players_from_spreadsheet(df: pd.DataFrame) -> List[ChessPlayer]:
         setattr(player, "previous_opponents", player_previous_opponents)
 
         players.append(player)
-        
+
     # set TB points
     PLAYERS_BY_ID = {player.player_id: player for player in players}
     for player in players:
-        player.tb_points = sum([PLAYERS_BY_ID[player_id].points for player_id in player.previous_opponents])
+        player.tb_points = sum([PLAYERS_BY_ID[player_id].points if player_id != 0 else 0 for player_id in player.previous_opponents])
 
     return players
 

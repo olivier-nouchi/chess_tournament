@@ -26,7 +26,6 @@ sacrifices_points_mapping = {'knight': 3,
                              'rook': 5,
                              'queen': 9}
 
-
 BYE_PLAYER = ChessPlayer(player_id=0, first_name="", last_name="BYE", is_active=True, is_paired=True)
 
 
@@ -42,19 +41,19 @@ def display_players_ranking(players: List[ChessPlayer], display_elo=True, displa
 
         if display_tb_points:
             tb_points_str = f"({player.tb_points} TB pts)"
-            
-        print(f"{ranking+1} - {player.full_name} - {player.points} points {tb_points_str} {elo_rating_str}")
-        
+
+        print(f"{ranking + 1} - {player.full_name} - {player.points} points {tb_points_str} {elo_rating_str}")
+
 
 def display_players_stats(players: List[ChessPlayer]):
     print("----- PLAYERS STATS -----")
-    
-    for player in players:
-            
-        print(f"{player.full_name} - {str(player.points)} points - {player.times_win_draw_loss_bye} - {player.round_colors} - {player.previous_opponents}")
-        
 
-def display_pairings_by_player(pairings:List):
+    for player in players:
+        print(
+            f"{player.full_name} - {str(player.points)} points - {player.times_win_draw_loss_bye} - {player.round_colors} - {player.previous_opponents}")
+
+
+def display_pairings_by_player(pairings: List):
     players_from_pairings = defaultdict(dict)
     for pairing in pairings:
         player1, player2 = pairing
@@ -65,13 +64,13 @@ def display_pairings_by_player(pairings:List):
         players_from_pairings[player2.player_id]["opp_id"] = player1.player_id
 
     sorted_player_by_id = dict(sorted(players_from_pairings.items()))
-    print(sorted_player_by_id)
-
+    
+    print("----- Pairings by player ID -----")
     for player_id, player_info in sorted_player_by_id.items():
         color = player_info["color"]
         opp_id = player_info["opp_id"]
         print(f"{player_id} - {color} - {opp_id}")
 
 
-def send_pairings_to_WA(pairings:List):
+def send_pairings_to_WA(pairings: List):
     pass
